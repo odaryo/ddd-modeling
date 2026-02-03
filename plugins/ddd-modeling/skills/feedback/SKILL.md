@@ -1,5 +1,5 @@
 ---
-name: diagram-feedback
+name: feedback
 description: "[補助スキル] Mermaid図にDDD観点でフィードバックを提供。生成された図のレビュー・改善に使用。"
 ---
 

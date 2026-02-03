@@ -17,16 +17,16 @@ DDDモデリングを段階的に進めるためのClaude Code / Codex CLIプラ
 ## ワークフロー
 
 ```
-Phase 1: /ddd-1-event-storming
+Phase 1: /ddd-modeling:1-event-storming
     → 01-event-storming.md, 01-event-storming-diagram.md
     ↓
-Phase 2: /ddd-2-aggregate
+Phase 2: /ddd-modeling:2-aggregate
     → 02-aggregates.md
     ↓
-Phase 3: /ddd-3-context
+Phase 3: /ddd-modeling:3-context
     → 03-bounded-contexts.md
     ↓
-Phase 4: /ddd-4-model-diagram
+Phase 4: /ddd-modeling:4-model-diagram
     → 04-sequence-*.md, 05-class-diagram.md
 ```
 
@@ -36,11 +36,11 @@ Phase 4: /ddd-4-model-diagram
 
 | スキル名 | 説明 | Codex対応 |
 |----------|------|-----------|
-| ddd-1-event-storming | DDDフェーズ1: イベントストーミング | Yes |
-| ddd-2-aggregate | DDDフェーズ2: 集約設計 | Yes |
-| ddd-3-context | DDDフェーズ3: 境界コンテキスト | Yes |
-| ddd-4-model-diagram | DDDフェーズ4: モデル図生成 | Yes |
-| diagram-feedback | UML/Mermaid図へのフィードバック | Yes |
+| 1-event-storming | DDDフェーズ1: イベントストーミング | Yes |
+| 2-aggregate | DDDフェーズ2: 集約設計 | Yes |
+| 3-context | DDDフェーズ3: 境界コンテキスト | Yes |
+| 4-model-diagram | DDDフェーズ4: モデル図生成 | Yes |
+| feedback | UML/Mermaid図へのフィードバック | Yes |
 
 ### 内部スキル
 
@@ -57,7 +57,7 @@ Phase 4: /ddd-4-model-diagram
 
 1. `/plugin`コマンドを実行し、`Marketplace`タブから新規追加
 2. URLに `odaryo/ddd-modeling`（owner/repo形式）を指定
-3. プラグイン名 `ddd-modeling-skills` を選択してインストール
+3. プラグイン名 `ddd-modeling` を選択してインストール
 
 #### 方法2: プロジェクト内に設定
 
@@ -79,7 +79,7 @@ Phase 4: /ddd-4-model-diagram
 その後、Claude Codeで以下を実行：
 
 ```bash
-/plugin install ddd-modeling-skills@ddd-modeling
+/plugin install ddd-modeling@ddd-modeling
 ```
 
 ### Codex CLI
@@ -89,11 +89,11 @@ Codexの `$skill-installer` スキルを使用してGitHubリポジトリから�
 **DDDモデリング一式:**
 ```
 $skill-installer install --repo <owner>/ddd-modeling \
-  --path plugins/ddd-modeling-skills/skills/ddd-1-event-storming \
-  --path plugins/ddd-modeling-skills/skills/ddd-2-aggregate \
-  --path plugins/ddd-modeling-skills/skills/ddd-3-context \
-  --path plugins/ddd-modeling-skills/skills/ddd-4-model-diagram \
-  --path plugins/ddd-modeling-skills/skills/diagram-feedback
+  --path plugins/ddd-modeling/skills/1-event-storming \
+  --path plugins/ddd-modeling/skills/2-aggregate \
+  --path plugins/ddd-modeling/skills/3-context \
+  --path plugins/ddd-modeling/skills/4-model-diagram \
+  --path plugins/ddd-modeling/skills/feedback
 ```
 
 **使い方:**
@@ -102,10 +102,10 @@ $skill-installer install --repo <owner>/ddd-modeling \
 /skills
 
 # 明示的に呼び出す
-$ddd-1-event-storming
+$1-event-storming
 
 # または暗黙的に呼び出し（トリガーワードで自動起動）
-「イベントストーミングを始めたい」→ ddd-1-event-storming が自動起動
+「イベントストーミングを始めたい」→ 1-event-storming が自動起動
 ```
 
 ## ディレクトリ構造
@@ -115,15 +115,15 @@ ddd-modeling/
 ├── .claude-plugin/
 │   └── marketplace.json        # マーケットプレイス定義
 ├── plugins/
-│   └── ddd-modeling-skills/    # DDDモデリングスキル集
+│   └── ddd-modeling/           # DDDモデリングスキル集
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── skills/
-│       │   ├── ddd-1-event-storming/
-│       │   ├── ddd-2-aggregate/
-│       │   ├── ddd-3-context/
-│       │   ├── ddd-4-model-diagram/
-│       │   ├── diagram-feedback/
+│       │   ├── 1-event-storming/
+│       │   ├── 2-aggregate/
+│       │   ├── 3-context/
+│       │   ├── 4-model-diagram/
+│       │   ├── feedback/
 │       │   └── [内部スキル...]
 │       └── tests/
 │           └── scenarios.md

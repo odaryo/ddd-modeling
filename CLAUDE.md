@@ -22,15 +22,15 @@ ddd-modeling/
 ├── .claude-plugin/
 │   └── marketplace.json        # マーケットプレイス定義
 ├── plugins/
-│   └── ddd-modeling-skills/    # DDDモデリングスキル集
+│   └── ddd-modeling/           # DDDモデリングスキル集
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── skills/
-│       │   ├── ddd-1-event-storming/   # Phase 1: イベントストーミング
-│       │   ├── ddd-2-aggregate/        # Phase 2: 集約設計
-│       │   ├── ddd-3-context/          # Phase 3: 境界コンテキスト
-│       │   ├── ddd-4-model-diagram/    # Phase 4: モデル図生成
-│       │   ├── diagram-feedback/       # 補助: 図のフィードバック
+│       │   ├── 1-event-storming/       # Phase 1: イベントストーミング
+│       │   ├── 2-aggregate/            # Phase 2: 集約設計
+│       │   ├── 3-context/              # Phase 3: 境界コンテキスト
+│       │   ├── 4-model-diagram/        # Phase 4: モデル図生成
+│       │   ├── feedback/               # 補助: 図のフィードバック
 │       │   └── [内部スキル...]
 │       └── tests/
 │           └── scenarios.md
@@ -41,16 +41,16 @@ ddd-modeling/
 ## DDDモデリングワークフロー
 
 ```
-Phase 1: /ddd-1-event-storming
+Phase 1: /ddd-modeling:1-event-storming
     → 01-event-storming.md, 01-event-storming-diagram.md
     ↓
-Phase 2: /ddd-2-aggregate
+Phase 2: /ddd-modeling:2-aggregate
     → 02-aggregates.md
     ↓
-Phase 3: /ddd-3-context
+Phase 3: /ddd-modeling:3-context
     → 03-bounded-contexts.md
     ↓
-Phase 4: /ddd-4-model-diagram
+Phase 4: /ddd-modeling:4-model-diagram
     → 04-sequence-*.md, 05-class-diagram.md
 ```
 
@@ -60,11 +60,11 @@ Phase 4: /ddd-4-model-diagram
 
 | スキル | 説明 | Codex対応 |
 |--------|------|-----------|
-| ddd-1-event-storming | Phase 1: イベントストーミング | Yes |
-| ddd-2-aggregate | Phase 2: 集約設計 | Yes |
-| ddd-3-context | Phase 3: 境界コンテキスト | Yes |
-| ddd-4-model-diagram | Phase 4: モデル図生成 | Yes |
-| diagram-feedback | 図へのフィードバック | Yes |
+| 1-event-storming | Phase 1: イベントストーミング | Yes |
+| 2-aggregate | Phase 2: 集約設計 | Yes |
+| 3-context | Phase 3: 境界コンテキスト | Yes |
+| 4-model-diagram | Phase 4: モデル図生成 | Yes |
+| feedback | 図へのフィードバック | Yes |
 
 ### 内部スキル（フェーズスキルから呼び出し）
 

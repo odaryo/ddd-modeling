@@ -1,4 +1,8 @@
 .idea
+.vscode
 
 # Claude Code local settings
 settings.local.json
+
+# Planning documents (task-only, not tracked)
+docs/

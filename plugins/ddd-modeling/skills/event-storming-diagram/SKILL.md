@@ -1,6 +1,6 @@
 ---
 name: event-storming-diagram
-description: "[内部スキル] イベントストーミング結果からMermaidフローチャート図を生成。ddd-1-event-stormingから呼び出される。"
+description: "[内部スキル] イベントストーミング結果からMermaidフローチャート図を生成。1-event-stormingから呼び出される。"
 user-invocable: false
 ---
 
@@ -151,5 +151,5 @@ Before saving, verify:
 
 After diagram generation:
 - Review with stakeholders for accuracy
-- Use `/diagram-feedback` for improvement suggestions
+- Use `/ddd-modeling:feedback` for improvement suggestions
 - Proceed to `/aggregate-designer` for aggregate design

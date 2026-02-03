@@ -1,5 +1,5 @@
 ---
-name: ddd-4-model-diagram
+name: 4-model-diagram
 description: DDDモデリング Phase 4。集約定義からクラス図とシーケンス図をMermaidで生成します。「クラス図」「シーケンス図」「ドメインモデル図」「DDDフェーズ4」時に使用。
 ---
 
@@ -485,5 +485,5 @@ docs/modeling/{session}/
 ## Diagram Review
 
 For feedback on generated diagrams:
-- Use `/diagram-feedback` with the file path
+- Use `/ddd-modeling:feedback` with the file path
 - Get DDD-focused review and improvement suggestions

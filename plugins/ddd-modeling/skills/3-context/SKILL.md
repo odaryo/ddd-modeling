@@ -1,31 +1,64 @@
 ---
-name: bounded-context-mapper
-description: "[内部スキル] 境界コンテキストの発見とマッピング。ddd-3-contextから呼び出される。"
-user-invocable: false
+name: 3-context
+description: DDDモデリング Phase 3。境界付けられたコンテキスト（Bounded Context）を対話形式で発見し、コンテキストマップをMermaidで生成します。「境界コンテキスト」「コンテキストマップ」「DDDフェーズ3」時に使用。
 ---
 
-# Bounded Context Mapper
+# DDD Modeling Phase 3: Bounded Context Discovery
 
-Identify and map bounded contexts through dialogue, generating context maps in Mermaid.
+境界付けられたコンテキスト（Bounded Context）を発見し、コンテキストマップを生成するフェーズ3スキル。
 
-## Input
+## Session Selection
 
-Optionally reads:
+**開始時に必ず実行:**
+
+1. `docs/modeling/` ディレクトリを検索して既存セッションを一覧表示
+2. 既存セッションがある場合、ユーザーに選択肢を提示:
+
+```
+既存のモデリングセッションが見つかりました:
+1. 2024-01-15-order-management (Phase 2まで完了)
+2. 2024-01-10-user-auth (Phase 3まで完了)
+3. 新規セッションを開始
+
+どれを選びますか？
+```
+
+3. 既存セッション選択時:
+   - `01-event-storming.md`, `02-aggregates.md` の有無を確認
+   - `03-bounded-contexts.md` が存在する場合:
+     - 「続きから編集しますか？それとも最初からやり直しますか？」
+     - 続きの場合: ファイルを読み込み、内容を確認して未完了箇所を特定
+     - やり直しの場合: 既存ファイルをバックアップ後、新規作成
+   - 存在しない場合: 新規作成として Phase 3 を開始
+
+4. 新規セッション選択時:
+   - トピック名を確認して `docs/modeling/{YYYY-MM-DD}-{topic}/` を作成
+   - Phase 1-2 をスキップして開始することをユーザーに確認
+
+## Prerequisites
+
+Phase 1, 2の出力を読み込み:
 - `docs/modeling/{session}/01-event-storming.md`
 - `docs/modeling/{session}/02-aggregates.md`
 
-Can also start fresh.
+または、ユーザーが提供する情報から開始可能。
 
 ## Workflow
 
 ```
-1. Team/Org Review    → Understand team structure
-2. Language Analysis  → Identify ubiquitous language boundaries
-3. Context Discovery  → Define bounded contexts
-4. Relationship Mapping → Define context relationships
-5. Integration Points  → Identify integration mechanisms
-6. Export             → Generate context map
+1. Team/Org Review     → チーム構造の理解
+2. Language Analysis   → ユビキタス言語の境界を特定
+3. Context Discovery   → 境界コンテキストを定義
+4. Relationship Mapping → コンテキスト間の関係を定義
+5. Integration Points  → 統合メカニズムを特定
+6. Export              → コンテキストマップを生成
 ```
+
+## Output File
+
+- `docs/modeling/{session}/03-bounded-contexts.md`
+
+---
 
 ## Session Flow
 
@@ -82,6 +115,8 @@ Ask:
 - 「**データ変換**は必要ですか？」
 - 「**障害時**の影響範囲は？」
 
+---
+
 ## Context Relationship Patterns
 
 | Pattern | Description | Use When |
@@ -95,9 +130,9 @@ Ask:
 | **Separate Ways** | 統合しない | 統合コストが価値を超える |
 | **Partnership** | 相互依存、共同進化 | 成功が相互依存 |
 
-## Output Format
+---
 
-Save to: `docs/modeling/{session}/03-bounded-contexts.md`
+## Output Format: 03-bounded-contexts.md
 
 ```markdown
 # Bounded Contexts: {Topic}
@@ -186,11 +221,14 @@ flowchart TB
 ## Next Steps
 - [ ] Review with all teams
 - [ ] Design integration contracts
-- [ ] Generate sequence diagrams: `/sequence-diagram`
+- [ ] Proceed to Phase 4: `/ddd-modeling:4-model-diagram`
 ```
+
+---
 
 ## Mermaid Context Map Styles
 
+### Basic Context Map
 ```mermaid
 flowchart TB
     classDef context fill:#E8F4FD,stroke:#1976D2,stroke-width:2px
@@ -209,6 +247,88 @@ flowchart TB
     Sales -->|"ACL"| Payment
 ```
 
-## Reference
+### Detailed Context Map
+```mermaid
+flowchart TB
+    subgraph Sales["Sales Context"]
+        S_Order[Order]
+        S_Customer[Customer]
+    end
 
-For detailed relationship patterns and anti-patterns, see [REFERENCE.md](REFERENCE.md).
+    subgraph Shipping["Shipping Context"]
+        SH_Shipment[Shipment]
+    end
+
+    subgraph Inventory["Inventory Context"]
+        I_Stock[Stock]
+    end
+
+    Sales -->|"Customer-Supplier"| Shipping
+    Sales -->|"ACL"| Inventory
+    Shipping -->|"Conformist"| Inventory
+```
+
+---
+
+## Context Discovery Heuristics
+
+### Signs of Separate Contexts
+
+| Signal | Example |
+|--------|---------|
+| Different teams own the code | Sales vs Warehouse |
+| Same word, different meaning | "Product" in Sales vs Inventory |
+| Different lifecycle/cadence | Real-time orders vs batch inventory |
+| Different data requirements | Full customer profile vs shipping address only |
+
+### Signs of Same Context
+
+| Signal | Example |
+|--------|---------|
+| Same team, tight collaboration | |
+| Shared ubiquitous language | |
+| Strong consistency requirements | |
+| Frequent co-changes | |
+
+---
+
+## Pattern Selection Guide
+
+```
+Q: Do teams collaborate closely?
+├─ Yes → Shared Kernel or Partnership
+└─ No → Continue
+
+Q: Does upstream consider downstream needs?
+├─ Yes → Customer-Supplier
+└─ No → Conformist or ACL
+
+Q: Is upstream a legacy/external system?
+├─ Yes → Anti-Corruption Layer
+└─ No → Continue
+
+Q: Does upstream serve many consumers?
+├─ Yes → Open Host Service + Published Language
+└─ No → Direct integration
+```
+
+---
+
+## Validation Checklist
+
+Before completing:
+- [ ] All aggregates assigned to a context
+- [ ] Ubiquitous language defined per context
+- [ ] Relationship patterns selected with rationale
+- [ ] Integration points identified
+- [ ] ACLs defined where needed
+- [ ] Context map diagram generated
+
+---
+
+## Next Steps
+
+After completing Phase 3:
+```
+→ Phase 4: /ddd-modeling:4-model-diagram (クラス図・シーケンス図生成)
+```

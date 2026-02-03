@@ -1,6 +1,6 @@
 ---
 name: class-diagram
-description: "[内部スキル] Mermaidクラス図/ドメインモデル図の生成。ddd-4-model-diagramから呼び出される。"
+description: "[内部スキル] Mermaidクラス図/ドメインモデル図の生成。4-model-diagramから呼び出される。"
 user-invocable: false
 ---
 
