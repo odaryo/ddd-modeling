@@ -7,18 +7,18 @@
 ```bash
 # プラグインインストール確認
 claude mcp list
-# → ddd-modeling-skills が表示されること
+# → ddd-modeling が表示されること
 ```
 
 ---
 
-## Scenario 1: Phase 1 - Event Storming (ddd-1-event-storming)
+## Scenario 1: Phase 1 - Event Storming (/ddd-modeling:1-event-storming)
 
 ### 1.1 基本起動テスト
 
 **Input:**
 ```
-/ddd-1-event-storming ECサイトの注文フロー
+/ddd-modeling:1-event-storming ECサイトの注文フロー
 ```
 
 **Expected:**
@@ -58,13 +58,13 @@ classDef external fill:#E91E8C,color:#fff
 
 ---
 
-## Scenario 2: Phase 2 - Aggregate Design (ddd-2-aggregate)
+## Scenario 2: Phase 2 - Aggregate Design (/ddd-modeling:2-aggregate)
 
 ### 2.1 基本起動テスト
 
 **Input:**
 ```
-/ddd-2-aggregate
+/ddd-modeling:2-aggregate
 ```
 
 **Expected:**
@@ -86,13 +86,13 @@ classDef external fill:#E91E8C,color:#fff
 
 ---
 
-## Scenario 3: Phase 3 - Bounded Context (ddd-3-context)
+## Scenario 3: Phase 3 - Bounded Context (/ddd-modeling:3-context)
 
 ### 3.1 基本起動テスト
 
 **Input:**
 ```
-/ddd-3-context
+/ddd-modeling:3-context
 ```
 
 **Expected:**
@@ -121,7 +121,7 @@ classDef external fill:#E91E8C,color:#fff
 
 ---
 
-## Scenario 4: Phase 4 - Model Diagrams (ddd-4-model-diagram)
+## Scenario 4: Phase 4 - Model Diagrams (/ddd-modeling:4-model-diagram)
 
 ### 4.1 シーケンス図生成
 
@@ -130,7 +130,7 @@ classDef external fill:#E91E8C,color:#fff
 
 **Input:**
 ```
-/ddd-4-model-diagram
+/ddd-modeling:4-model-diagram
 ```
 
 **Expected:**
@@ -178,13 +178,13 @@ class Money {
 
 ---
 
-## Scenario 5: Diagram Feedback (diagram-feedback)
+## Scenario 5: Diagram Feedback (/ddd-modeling:feedback)
 
 ### 5.1 Mermaid ファイルへのフィードバック
 
 **Input:**
 ```
-/diagram-feedback docs/modeling/2025-01-15-order/05-class-diagram.md
+/ddd-modeling:feedback docs/modeling/2025-01-15-order/05-class-diagram.md
 ```
 
 **Expected:**
@@ -202,7 +202,7 @@ class Money {
 
 **Input:**
 ```
-/diagram-feedback /path/to/diagram-screenshot.png
+/ddd-modeling:feedback /path/to/diagram-screenshot.png
 ```
 
 **Expected:**
@@ -213,7 +213,7 @@ class Money {
 
 **Input:**
 ````
-/diagram-feedback
+/ddd-modeling:feedback
 ```mermaid
 classDiagram
     class Order
@@ -234,31 +234,31 @@ classDiagram
 
 **Step 1:** Phase 1 - イベントストーミング
 ```
-/ddd-1-event-storming ECサイトの注文管理
+/ddd-modeling:1-event-storming ECサイトの注文管理
 ```
 → 対話完了後、`01-event-storming.md` と `01-event-storming-diagram.md` が生成
 
 **Step 2:** Phase 2 - 集約設計
 ```
-/ddd-2-aggregate
+/ddd-modeling:2-aggregate
 ```
 → 対話完了後、`02-aggregates.md` が生成
 
 **Step 3:** Phase 3 - 境界コンテキスト
 ```
-/ddd-3-context
+/ddd-modeling:3-context
 ```
 → 対話完了後、`03-bounded-contexts.md` が生成
 
 **Step 4:** Phase 4 - モデル図生成
 ```
-/ddd-4-model-diagram
+/ddd-modeling:4-model-diagram
 ```
 → シーケンス図とクラス図が生成（`04-sequence-*.md`, `05-class-diagram.md`）
 
 **Step 5:** フィードバック
 ```
-/diagram-feedback docs/modeling/{session}/05-class-diagram.md
+/ddd-modeling:feedback docs/modeling/{session}/05-class-diagram.md
 ```
 → 改善提案を出力
 
@@ -277,19 +277,19 @@ classDiagram
 
 **Input:**
 ```
-/ddd-4-model-diagram
+/ddd-modeling:4-model-diagram
 ```
 （02-aggregates.md が存在しない状態）
 
 **Expected:**
 - エラーメッセージではなく、新規入力を促す
-- 「集約定義が見つかりません。直接定義を入力するか、先に /ddd-2-aggregate を実行してください」
+- 「集約定義が見つかりません。直接定義を入力するか、先に /ddd-modeling:2-aggregate を実行してください」
 
 ### E2: 不正なファイルパス
 
 **Input:**
 ```
-/diagram-feedback /nonexistent/file.md
+/ddd-modeling:feedback /nonexistent/file.md
 ```
 
 **Expected:**
@@ -311,11 +311,11 @@ classDiagram
 ### ユーザー向けスキル（フェーズスキル）
 
 以下のスキルはユーザーが直接呼び出すことを想定:
-- `/ddd-1-event-storming` - Phase 1
-- `/ddd-2-aggregate` - Phase 2
-- `/ddd-3-context` - Phase 3
-- `/ddd-4-model-diagram` - Phase 4
-- `/diagram-feedback` - 補助スキル
+- `/ddd-modeling:1-event-storming` - Phase 1
+- `/ddd-modeling:2-aggregate` - Phase 2
+- `/ddd-modeling:3-context` - Phase 3
+- `/ddd-modeling:4-model-diagram` - Phase 4
+- `/ddd-modeling:feedback` - 補助スキル
 
 ### 内部スキル（直接呼び出し非推奨）
 
