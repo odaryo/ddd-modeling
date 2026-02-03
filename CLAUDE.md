@@ -13,7 +13,7 @@ Claude Code / Codex CLI両対応のDDDモデリングスキルマーケットプ
 - **Claude固有**: `plugin.json`, `marketplace.json`, `REFERENCE.md`
 - **Codex固有**: `$skill-installer` でパス指定インストール
 
-Codex用のインストール手順は [CODEX_SKILLS.md](CODEX_SKILLS.md) を参照。
+Codex用のインストール手順は `README.md` を参照。
 
 ## アーキテクチャ
 
@@ -35,7 +35,6 @@ ddd-modeling/
 │       └── tests/
 │           └── scenarios.md
 ├── CLAUDE.md
-├── CODEX_SKILLS.md
 └── README.md
 ```
 
@@ -123,4 +122,4 @@ docs/modeling/{YYYY-MM-DD}-{topic}/
 2. `.claude-plugin/plugin.json` を作成
 3. `skills/<skill-name>/SKILL.md` を作成
 4. `.claude-plugin/marketplace.json` に追加
-5. Codex対応の場合: `CODEX_SKILLS.md` にインストール手順を追加
+5. Codex対応の場合: `README.md` にインストール手順を追加

@@ -2,9 +2,6 @@
 
 DDDモデリングを段階的に進めるためのClaude Code / Codex CLIプラグインです。
 
-> **Codex CLI対応**: このリポジトリのスキルはClaude CodeとCodex CLIの両方で利用可能です。
-> Codex CLIでのインストール方法は [CODEX_SKILLS.md](CODEX_SKILLS.md) を参照してください。
-
 ## 概要
 
 ドメインモデリングにおいて、ドメインエキスパートとの対話だけでは見落としがちな観点や、暗黙的な知識を明示化することが難しい場面があります。
@@ -99,7 +96,17 @@ $skill-installer install --repo <owner>/ddd-modeling \
   --path plugins/ddd-modeling-skills/skills/diagram-feedback
 ```
 
-> 詳細は [CODEX_SKILLS.md](CODEX_SKILLS.md) を参照してください。
+**使い方:**
+```
+# スキル一覧を表示
+/skills
+
+# 明示的に呼び出す
+$ddd-1-event-storming
+
+# または暗黙的に呼び出し（トリガーワードで自動起動）
+「イベントストーミングを始めたい」→ ddd-1-event-storming が自動起動
+```
 
 ## ディレクトリ構造
 
@@ -121,7 +128,6 @@ ddd-modeling/
 │       └── tests/
 │           └── scenarios.md
 ├── CLAUDE.md                   # Claude Code用ガイド
-├── CODEX_SKILLS.md             # Codex CLI用インストール手順
 └── README.md
 ```
 
