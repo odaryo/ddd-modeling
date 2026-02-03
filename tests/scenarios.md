@@ -230,7 +230,7 @@ classDiagram
 
 ## End-to-End Scenario
 
-### 完全フロー検証（フェーズスキルのみを使用）
+### 完全フロー検証
 
 **Step 1:** Phase 1 - イベントストーミング
 ```
@@ -306,25 +306,26 @@ classDiagram
 
 ---
 
-## 注意事項
+## スキル構造
 
-### ユーザー向けスキル（フェーズスキル）
+### ユーザー向けコマンド
 
-以下のスキルはユーザーが直接呼び出すことを想定:
+以下のコマンドはユーザーが直接呼び出すことを想定:
 - `/ddd-modeling:1-event-storming` - Phase 1
 - `/ddd-modeling:2-aggregate` - Phase 2
 - `/ddd-modeling:3-context` - Phase 3
 - `/ddd-modeling:4-model-diagram` - Phase 4
 - `/ddd-modeling:feedback` - 補助スキル
 
-### 内部スキル（直接呼び出し非推奨）
+### リファレンスファイル
 
-以下のスキルはフェーズスキルから内部的に呼び出される:
-- `event-storming-facilitator`
-- `event-storming-diagram`
-- `aggregate-designer`
-- `bounded-context-mapper`
-- `sequence-diagram`
-- `class-diagram`
+各フェーズスキルには `references/` ディレクトリがあり、詳細なガイドが含まれる：
 
-※ 内部スキルは直接呼び出さず、対応するフェーズスキルを使用してください。
+| スキル | リファレンス |
+|--------|-------------|
+| event-storming | facilitator.md, diagram-generator.md, color-convention.md |
+| aggregate | designer.md |
+| context | mapper.md |
+| model-diagram | sequence-diagram.md, class-diagram.md |
+
+これらはスキル内部から参照され、詳細な情報が必要な場合に読み込まれる。

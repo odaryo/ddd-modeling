@@ -78,26 +78,13 @@ Date: {YYYY-MM-DD}
 {Corrected code snippet}
 \`\`\`
 
----
-
-### Issue 2: {Title}
-{Same structure}
-
 ## Recommended Changes
 
 ### High Priority
 1. {Most important fix}
-2. {Second priority}
 
 ### Nice to Have
 1. {Optional improvement}
-
-## Revised Diagram (Optional)
-
-If significant changes suggested:
-\`\`\`mermaid
-{Complete revised diagram}
-\`\`\`
 ```
 
 ## DDD Review Checklist
@@ -126,20 +113,6 @@ If significant changes suggested:
 - [ ] Domain language used (not technical jargon)
 - [ ] No abbreviations unless standard
 
-## Clarity Review Checklist
-
-### Layout
-- [ ] Logical grouping (aggregates together)
-- [ ] Consistent direction (top-down or left-right)
-- [ ] Not too crowded
-- [ ] Important elements prominent
-
-### Visual
-- [ ] Stereotypes visible
-- [ ] Relationships clear
-- [ ] Notes explain non-obvious parts
-- [ ] Colors used meaningfully (if at all)
-
 ## Common Issues
 
 ### DDD Issues
@@ -157,8 +130,6 @@ If significant changes suggested:
 |-------|---------|-----|
 | Spaghetti layout | Lines crossing everywhere | Reorganize, use subgraphs |
 | Information overload | 50+ classes in one diagram | Split by aggregate/context |
-| Missing context | Classes without stereotypes | Add stereotypes, notes |
-| Inconsistent style | Mix of notation styles | Standardize on one style |
 
 ### Naming Issues
 
@@ -166,24 +137,28 @@ If significant changes suggested:
 |-------|---------|-----|
 | Technical names | `UserDTO`, `OrderEntity` | `User`, `Order` |
 | Plural names | `Orders` | `Order` |
-| Vague names | `Data`, `Info`, `Manager` | Be specific |
-| Inconsistent casing | `orderItem`, `OrderStatus` | Use PascalCase for classes |
 
-## Image Analysis
+---
 
-When analyzing diagram images:
+## Error Handling
 
-1. **Identify elements** - List all visible classes/entities
-2. **Trace relationships** - Map connections
-3. **Check labels** - Read all text/stereotypes
-4. **Assess layout** - Visual organization
-5. **Look for issues** - Apply same checklist
+### ファイルが見つからない場合
+- 「指定されたファイルが見つかりません: {path}」
+- インラインコードの入力を促す、または正しいパスの確認を依頼
 
-Note: Image analysis may miss small text or unclear elements. Ask for Mermaid source if available.
+### ファイルが読み込めない場合
+- 「ファイルを読み込めませんでした」
+- 別の形式（インラインまたは画像）での入力を提案
+
+### Mermaid構文エラー
+- 「Mermaid構文にエラーがあります」
+- エラー箇所を特定し、修正案を提示
+
+---
 
 ## Follow-up Suggestions
 
 After feedback:
 - 「修正版を生成しましょうか？」
 - 「特定の問題について詳しく説明しましょうか？」
-- 「関連するスキルを実行しますか？」（/class-diagram, /aggregate-designer）
+- 「関連するフェーズスキルを実行しますか？」

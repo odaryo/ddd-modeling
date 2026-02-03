@@ -79,17 +79,6 @@ Ask:
 - 「**Customer**はどの文脈でどういう意味ですか？」
 - 「この用語が**最も重要**なのはどのチームですか？」
 
-Capture language variations:
-```markdown
-## Language Analysis
-
-| Term | Context A Meaning | Context B Meaning |
-|------|-------------------|-------------------|
-| Customer | 購入者、アカウント情報 | 配送先、連絡先 |
-| Product | 販売単位、価格 | 在庫単位、ロケーション |
-| Order | 購入トランザクション | 出荷指示 |
-```
-
 ### Phase 3: Context Discovery
 
 Based on language/team analysis, propose contexts:
@@ -98,23 +87,20 @@ Based on language/team analysis, propose contexts:
 For each proposed context:
 - 「このコンテキストの**主な責任**は何ですか？」
 - 「**含まれる集約**はどれですか？」
-- 「**除外すべきもの**はありますか？」
 
 ### Phase 4: Relationship Mapping
 
 For each context pair:
 - 「{Context A}と{Context B}は**データをやり取り**しますか？」
 - 「どちらが**上流**（提供側）ですか？」
-- 「**依存関係の強さ**はどの程度ですか？」
 
-Present relationship patterns and ask user to select appropriate one.
+Present relationship patterns and ask user to select.
 
 ### Phase 5: Integration Points
 
 Ask:
 - 「コンテキスト間の**通信方法**は？（API, イベント, 共有DB）」
 - 「**データ変換**は必要ですか？」
-- 「**障害時**の影響範囲は？」
 
 ---
 
@@ -133,103 +119,20 @@ Ask:
 
 ---
 
-## Output Format: 03-bounded-contexts.md
+## Output Format
 
-```markdown
-# Bounded Contexts: {Topic}
-
-Date: {YYYY-MM-DD}
-
-## Context Overview
-
-| Context | Responsibility | Team | Key Aggregates |
-|---------|---------------|------|----------------|
-| Sales | 販売・注文管理 | Sales Team | Order, Customer |
-| Shipping | 配送管理 | Logistics | Shipment, Carrier |
-| Inventory | 在庫管理 | Warehouse | Stock, Location |
-
-## Context Definitions
-
-### Sales Context
-
-**Responsibility:** 商品の販売と注文の管理
-
-**Ubiquitous Language:**
-- Customer: 購入者（アカウント、購入履歴を持つ）
-- Order: 購入トランザクション
-- Product: 販売可能な商品単位
-
-**Aggregates:**
-- Order
-- Customer
-
-**Team:** Sales Team
+Save to `03-bounded-contexts.md` with:
+- Context Overview テーブル
+- 各コンテキストの定義（Responsibility, Ubiquitous Language, Aggregates）
+- Context Map (Mermaid)
+- Relationship Details
+- Integration Points
+- Anti-Corruption Layers (if any)
 
 ---
 
-### Shipping Context
-{Same structure}
+## Mermaid Context Map Example
 
-## Context Map
-
-\`\`\`mermaid
-flowchart TB
-    subgraph Sales["Sales Context"]
-        S_Order[Order]
-        S_Customer[Customer]
-    end
-
-    subgraph Shipping["Shipping Context"]
-        SH_Shipment[Shipment]
-    end
-
-    subgraph Inventory["Inventory Context"]
-        I_Stock[Stock]
-    end
-
-    Sales -->|"Customer-Supplier"| Shipping
-    Sales -->|"ACL"| Inventory
-    Shipping -->|"Conformist"| Inventory
-\`\`\`
-
-## Relationship Details
-
-| Upstream | Downstream | Pattern | Integration |
-|----------|------------|---------|-------------|
-| Sales | Shipping | Customer-Supplier | REST API |
-| Inventory | Sales | ACL | Event-driven |
-| Inventory | Shipping | Conformist | Shared DB (readonly) |
-
-## Integration Points
-
-### Sales → Shipping
-- **Trigger:** OrderPlaced event
-- **Data:** Order details, shipping address
-- **Protocol:** REST API
-- **ACL:** ShippingOrderAdapter
-
-## Anti-Corruption Layers
-
-### Sales-Inventory ACL
-**Purpose:** Protect Sales model from Inventory complexity
-**Transformations:**
-- Inventory.StockItem → Sales.ProductAvailability
-- Inventory.Location → (not exposed)
-
-## Open Questions
-{Any unresolved items}
-
-## Next Steps
-- [ ] Review with all teams
-- [ ] Design integration contracts
-- [ ] Proceed to Phase 4: `/ddd-modeling:4-model-diagram`
-```
-
----
-
-## Mermaid Context Map Styles
-
-### Basic Context Map
 ```mermaid
 flowchart TB
     classDef context fill:#E8F4FD,stroke:#1976D2,stroke-width:2px
@@ -248,71 +151,6 @@ flowchart TB
     Sales -->|"ACL"| Payment
 ```
 
-### Detailed Context Map
-```mermaid
-flowchart TB
-    subgraph Sales["Sales Context"]
-        S_Order[Order]
-        S_Customer[Customer]
-    end
-
-    subgraph Shipping["Shipping Context"]
-        SH_Shipment[Shipment]
-    end
-
-    subgraph Inventory["Inventory Context"]
-        I_Stock[Stock]
-    end
-
-    Sales -->|"Customer-Supplier"| Shipping
-    Sales -->|"ACL"| Inventory
-    Shipping -->|"Conformist"| Inventory
-```
-
----
-
-## Context Discovery Heuristics
-
-### Signs of Separate Contexts
-
-| Signal | Example |
-|--------|---------|
-| Different teams own the code | Sales vs Warehouse |
-| Same word, different meaning | "Product" in Sales vs Inventory |
-| Different lifecycle/cadence | Real-time orders vs batch inventory |
-| Different data requirements | Full customer profile vs shipping address only |
-
-### Signs of Same Context
-
-| Signal | Example |
-|--------|---------|
-| Same team, tight collaboration | |
-| Shared ubiquitous language | |
-| Strong consistency requirements | |
-| Frequent co-changes | |
-
----
-
-## Pattern Selection Guide
-
-```
-Q: Do teams collaborate closely?
-├─ Yes → Shared Kernel or Partnership
-└─ No → Continue
-
-Q: Does upstream consider downstream needs?
-├─ Yes → Customer-Supplier
-└─ No → Conformist or ACL
-
-Q: Is upstream a legacy/external system?
-├─ Yes → Anti-Corruption Layer
-└─ No → Continue
-
-Q: Does upstream serve many consumers?
-├─ Yes → Open Host Service + Published Language
-└─ No → Direct integration
-```
-
 ---
 
 ## Validation Checklist
@@ -324,6 +162,25 @@ Before completing:
 - [ ] Integration points identified
 - [ ] ACLs defined where needed
 - [ ] Context map diagram generated
+
+---
+
+## Error Handling
+
+### 前提ファイルが存在しない場合
+- 「イベントストーミング結果や集約定義が見つかりません」
+- ユーザーに直接入力を促すか、先に前フェーズの実行を案内
+
+### 既存セッションの破損
+- ファイルが読み込めない場合、バックアップを提案
+- 新規作成オプションを提示
+
+---
+
+## References
+
+詳細なガイド:
+- 関係パターンとアンチパターン: [references/mapper.md](references/mapper.md)
 
 ---
 

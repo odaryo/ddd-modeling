@@ -1,5 +1,7 @@
 # Event Storming Facilitator Reference
 
+イベントストーミングファシリテーションの詳細ガイド。
+
 ## Facilitation Question Bank
 
 ### Event Discovery Questions
@@ -75,20 +77,6 @@
 | **UI events** | `ButtonClicked`, `FormSubmitted` | Not domain events |
 | **Composite events** | `OrderPlacedAndPaid` | Split into atomic events |
 | **Missing actor** | Event with no clear trigger | Every event needs a cause |
-
-## Sticky Note Colors (Reference)
-
-Traditional event storming uses colored sticky notes:
-
-| Color | Element | Mermaid Style |
-|-------|---------|---------------|
-| Orange | Domain Event | `fill:#FF6B35` |
-| Blue | Command | `fill:#4A90D9` |
-| Yellow | Actor/User | `fill:#FFD93D` |
-| Lilac/Purple | Policy | `fill:#9B59B6` |
-| Pink | External System | `fill:#E91E8C` |
-| Green | Aggregate | `fill:#27AE60` |
-| Red | Hot Spot / Question | `fill:#E74C3C` |
 
 ## Conflict Resolution
 

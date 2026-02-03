@@ -1,5 +1,7 @@
 # Bounded Context Mapper Reference
 
+境界コンテキストの発見とマッピングの詳細ガイド。
+
 ## Context Relationship Patterns Detail
 
 ### Shared Kernel
