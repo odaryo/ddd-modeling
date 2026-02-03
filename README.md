@@ -44,13 +44,17 @@ Phase 4: /ddd-modeling:4-model-diagram
 | 4-model-diagram | DDDフェーズ4: モデル図生成 | Yes |
 | feedback | UML/Mermaid図へのフィードバック | Yes |
 
-### 内部スキル
+### スキル構造
 
-以下のスキルはコマンドから呼び出される内部スキルです（直接呼び出し不可）:
-- `event-storming`, `aggregate`, `context`, `model-diagram`, `feedback`
-- `event-storming-facilitator`, `event-storming-diagram`
-- `aggregate-designer`, `bounded-context-mapper`
-- `class-diagram`, `sequence-diagram`
+各コマンドは対応するフェーズスキルを呼び出します。フェーズスキルは `references/` ディレクトリに詳細なガイドを持ちます：
+
+| スキル | 説明 | リファレンス |
+|--------|------|--------------|
+| event-storming | イベントストーミングファシリテーション＋図生成 | facilitator.md, diagram-generator.md, color-convention.md |
+| aggregate | 集約設計支援 | designer.md |
+| context | 境界コンテキストマッピング | mapper.md |
+| model-diagram | シーケンス図・クラス図生成 | sequence-diagram.md, class-diagram.md |
+| feedback | 図へのDDDフィードバック | - |
 
 ## 導入方法
 
@@ -124,13 +128,28 @@ ddd-modeling/
 │   ├── 3-context.md
 │   ├── 4-model-diagram.md
 │   └── feedback.md
-├── skills/                     # 内部スキル
+├── skills/                     # フェーズスキル
 │   ├── event-storming/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── facilitator.md
+│   │       ├── diagram-generator.md
+│   │       └── color-convention.md
 │   ├── aggregate/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── designer.md
 │   ├── context/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── mapper.md
 │   ├── model-diagram/
-│   ├── feedback/
-│   └── [その他内部スキル...]
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── sequence-diagram.md
+│   │       └── class-diagram.md
+│   └── feedback/
+│       └── SKILL.md
 ├── tests/
 │   └── scenarios.md
 ├── CLAUDE.md                   # Claude Code用ガイド

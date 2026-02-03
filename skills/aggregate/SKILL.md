@@ -79,27 +79,12 @@ For each candidate entity, ask:
 - 「{Entity}が**不正な状態**になるのはどんなとき？」
 - 「複数の{Entity}間で**同時に守るべきルール**はありますか？」
 
-Capture invariants:
-```markdown
-## Invariants
-
-| Entity | Invariant | Description |
-|--------|-----------|-------------|
-| Order | OrderTotal = sum(LineItems) | 合計金額は明細の合計と一致 |
-| Order | LineItems.count >= 1 | 注文には最低1つの明細が必要 |
-| LineItem | Quantity > 0 | 数量は正の数 |
-```
-
 ### Phase 3: Boundary Analysis
 
 Ask:
 - 「{Entity A}と{Entity B}は**同じトランザクション**で更新される必要がありますか？」
 - 「{Entity}を変更するとき、**他に影響を受ける**ものは？」
 - 「**別々に**変更しても問題ないものはどれですか？」
-
-Key questions for boundaries:
-- 「これらを**同時に**ロックする必要がありますか？」
-- 「片方だけ**成功**して問題ないですか？」
 
 ### Phase 4: Lifecycle Mapping
 
@@ -108,84 +93,21 @@ For each aggregate candidate:
 - 「いつ**削除**されますか？」
 - 「**親**が削除されたら、**子**はどうなりますか？」
 
-Lifecycle patterns:
-- **Dependent**: Child exists only within parent's lifetime
-- **Independent**: Can outlive parent (reference only)
-
 ### Phase 5: Root Identification
 
 For each aggregate:
 - 「外部から**直接アクセス**されるのはどれですか？」
 - 「**ID**で参照されるのはどれですか？」
 
-Aggregate root criteria:
-- Single entry point to the aggregate
-- Owns all contained entities
-- Controls access to invariants
-
 ---
 
-## Output Format: 02-aggregates.md
+## Output Format
 
-```markdown
-# Aggregate Design: {Topic}
-
-Date: {YYYY-MM-DD}
-
-## Aggregates Overview
-
-| Aggregate | Root | Contains | Key Invariant |
-|-----------|------|----------|---------------|
-| Order | Order | LineItem, ShippingInfo | Total matches line items |
-| Product | Product | - | SKU is unique |
-
-## Detailed Definitions
-
-### Aggregate: Order
-
-**Root Entity:** Order
-
-**Contained Entities:**
-- LineItem (1..*)
-- ShippingInfo (0..1)
-
-**Value Objects:**
-- Money (amount, currency)
-- Address
-
-**Invariants:**
-1. Order must have at least one LineItem
-2. Order total = sum of LineItem totals
-3. ShippingInfo required before shipping
-
-**Lifecycle:**
-- Created: When customer places order
-- Deleted: Soft delete only (audit requirements)
-
-**External References:**
-- Customer (by ID only)
-- Product (by ID only)
-
----
-
-### Aggregate: Product
-{Same structure}
-
-## Design Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| Order contains LineItem | Must maintain total invariant in same transaction |
-| Product is separate aggregate | Can be modified independently of orders |
-
-## Open Questions
-{Any unresolved items}
-
-## Next Steps
-- [ ] Review with domain experts
-- [ ] Proceed to Phase 3: `/ddd-modeling:3-context`
-- [ ] Or skip to Phase 4: `/ddd-modeling:4-model-diagram`
-```
+Save to `02-aggregates.md` with:
+- Aggregates Overview テーブル
+- 各集約の詳細定義（Root, Entities, Value Objects, Invariants, Lifecycle）
+- Design Decisions と Rationale
+- Open Questions
 
 ---
 
@@ -198,82 +120,22 @@ Date: {YYYY-MM-DD}
 - Better concurrency (less lock contention)
 - Simpler to understand
 
-**Signs of too-large aggregate:**
-- Multiple unrelated invariants
-- High contention in concurrent access
-- Changes in one part rarely affect others
-
 ### Entity vs Value Object
 
 | Criteria | Entity | Value Object |
 |----------|--------|--------------|
 | Identity | Has unique ID | No identity |
 | Equality | By ID | By attributes |
-| Lifecycle | Independent | Belongs to entity |
 | Mutability | Can change | Immutable |
-
-**Examples:**
-- Entity: Order, Customer, Product
-- Value Object: Money, Address, DateRange
 
 ### Cross-Aggregate References
 
 **Rule:** Reference by ID only, not object reference
 
 ```
-# Good
-Order.customerId: CustomerID
-
-# Bad
-Order.customer: Customer
+✓ Good: Order.customerId: CustomerID
+✗ Bad:  Order.customer: Customer
 ```
-
-**Why:**
-- Maintains aggregate independence
-- Allows eventual consistency
-- Clearer transaction boundaries
-
----
-
-## Common Patterns
-
-### Order with LineItems
-```markdown
-Aggregate: Order
-├── Root: Order
-├── Entity: LineItem (1..*)
-├── VO: Money, Address
-└── Ref: Customer (by ID)
-```
-
-### User with Profile
-```markdown
-Aggregate: User
-├── Root: User
-├── VO: Email, Password, Profile
-└── Ref: Organization (by ID)
-```
-
-### Product Catalog
-```markdown
-Aggregate: Product
-├── Root: Product
-├── Entity: Variant (0..*)
-├── VO: Price, SKU
-└── Ref: Category (by ID)
-```
-
----
-
-## Anti-Patterns to Avoid
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| God Aggregate | Contains everything | Split by invariant boundaries |
-| Anemic Aggregate | No business logic | Move logic into aggregate |
-| Direct Object Reference | Tight coupling | Use ID references |
-| Missing Root | No clear entry point | Identify single access point |
-| Shared Mutable State | Consistency issues | Each aggregate owns its state |
 
 ---
 
@@ -286,6 +148,25 @@ Before completing:
 - [ ] Cross-aggregate references use IDs only
 - [ ] Aggregate size is reasonable (not too large)
 - [ ] Design decisions documented with rationale
+
+---
+
+## Error Handling
+
+### 前提ファイルが存在しない場合
+- 「イベントストーミング結果（01-event-storming.md）が見つかりません」
+- ユーザーに直接入力を促すか、先に `/ddd-modeling:1-event-storming` の実行を案内
+
+### 既存セッションの破損
+- ファイルが読み込めない場合、バックアップを提案
+- 新規作成オプションを提示
+
+---
+
+## References
+
+詳細なガイド:
+- 設計ルールとアンチパターン: [references/designer.md](references/designer.md)
 
 ---
 

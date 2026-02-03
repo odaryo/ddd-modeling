@@ -1,5 +1,7 @@
 # Aggregate Designer Reference
 
+集約設計の詳細ガイド。設計ルール、アンチパターン、検証チェックリスト。
+
 ## Aggregate Design Rules
 
 ### Core Principles
@@ -157,27 +159,23 @@ When aggregates must coordinate:
 
 ### Create
 
-```markdown
 | Pattern | Example |
 |---------|---------|
 | Factory Method | Order.create(customer, items) |
 | Constructor | new Order(id, customer, items) |
 | Builder | OrderBuilder.withCustomer().withItems().build() |
-```
 
 ### Delete
 
-```markdown
 | Pattern | When to Use |
 |---------|-------------|
 | Hard Delete | No audit requirements |
 | Soft Delete | Need history, can be restored |
 | Archive | Legal requirements, rarely accessed |
-```
 
 ### State Transitions
 
-```markdown
+```
 Order States: Draft → Placed → Paid → Shipped → Delivered
                  ↓         ↓
               Abandoned  Cancelled

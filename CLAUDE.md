@@ -28,13 +28,28 @@ ddd-modeling/
 │   ├── 3-context.md            # /ddd-modeling:3-context
 │   ├── 4-model-diagram.md      # /ddd-modeling:4-model-diagram
 │   └── feedback.md             # /ddd-modeling:feedback
-├── skills/                     # 内部スキル（コマンドから呼び出し）
+├── skills/                     # フェーズスキル
 │   ├── event-storming/         # Phase 1: イベントストーミング
+│   │   ├── SKILL.md
+│   │   └── references/         # 詳細リファレンス
+│   │       ├── facilitator.md
+│   │       ├── diagram-generator.md
+│   │       └── color-convention.md
 │   ├── aggregate/              # Phase 2: 集約設計
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── designer.md
 │   ├── context/                # Phase 3: 境界コンテキスト
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── mapper.md
 │   ├── model-diagram/          # Phase 4: モデル図生成
-│   ├── feedback/               # 補助: 図のフィードバック
-│   └── [その他内部スキル...]
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── sequence-diagram.md
+│   │       └── class-diagram.md
+│   └── feedback/               # 補助: 図のフィードバック
+│       └── SKILL.md
 ├── tests/
 │   └── scenarios.md
 ├── CLAUDE.md
@@ -71,21 +86,28 @@ Phase 4: /ddd-modeling:4-model-diagram
 | 4-model-diagram | Phase 4: モデル図生成 | model-diagram |
 | feedback | 図へのフィードバック | feedback |
 
-### 内部スキル（コマンドから呼び出し）
+### フェーズスキル
 
-| スキル | 説明 |
-|--------|------|
-| event-storming | イベントストーミングファシリテーション＋図生成 |
-| aggregate | 集約設計支援 |
-| context | 境界コンテキストマッピング |
-| model-diagram | シーケンス図・クラス図生成 |
-| feedback | 図へのDDDフィードバック |
-| event-storming-facilitator | (内部) イベントストーミングファシリテーション |
-| event-storming-diagram | (内部) イベントストーミング図生成 |
-| aggregate-designer | (内部) 集約設計支援 |
-| bounded-context-mapper | (内部) 境界コンテキストマッピング |
-| sequence-diagram | (内部) シーケンス図生成 |
-| class-diagram | (内部) クラス図生成 |
+| スキル | 説明 | リファレンス |
+|--------|------|--------------|
+| event-storming | イベントストーミングファシリテーション＋図生成 | facilitator.md, diagram-generator.md, color-convention.md |
+| aggregate | 集約設計支援 | designer.md |
+| context | 境界コンテキストマッピング | mapper.md |
+| model-diagram | シーケンス図・クラス図生成 | sequence-diagram.md, class-diagram.md |
+| feedback | 図へのDDDフィードバック | - |
+
+### リファレンス構造
+
+各フェーズスキルは `references/` ディレクトリに詳細なガイドを持つ：
+
+```
+skills/{phase}/
+├── SKILL.md           # メインスキル定義
+└── references/        # 詳細リファレンス
+    └── *.md           # 具体的なガイドやパターン
+```
+
+リファレンスファイルは SKILL.md から `[references/xxx.md](references/xxx.md)` として参照される。
 
 ## コマンドファイル作成ガイドライン
 
@@ -109,9 +131,37 @@ user-invocable: false         # 内部スキルとして設定
 ---
 ```
 
-### 参照ファイル
-- `REFERENCE.md`: 詳細なリファレンス情報（オプション）
-- SKILL.md内で `[REFERENCE.md](REFERENCE.md)` として参照
+### 推奨構造
+
+```markdown
+# スキル名
+
+説明
+
+## Session Selection
+セッション選択ロジック
+
+## Workflow
+処理フロー
+
+## Output File(s)
+出力ファイル
+
+## Session Flow
+対話フェーズ
+
+## Validation Checklist
+完了前チェック
+
+## Error Handling
+エラー処理
+
+## References
+詳細リファレンスへのリンク
+
+## Next Steps
+次のフェーズへの案内
+```
 
 ## 出力ディレクトリ規約
 
@@ -137,10 +187,12 @@ docs/modeling/{YYYY-MM-DD}-{topic}/
 | External System | Pink | `fill:#E91E8C,color:#fff` |
 | Aggregate | Green | `fill:#27AE60,color:#fff` |
 
+詳細は `skills/event-storming/references/color-convention.md` を参照。
+
 ## プラグインの追加方法
 
-1. `plugins/<plugin-name>/` ディレクトリを作成
-2. `.claude-plugin/plugin.json` を作成
-3. `skills/<skill-name>/SKILL.md` を作成
-4. `.claude-plugin/marketplace.json` に追加
+1. `skills/<skill-name>/` ディレクトリを作成
+2. `skills/<skill-name>/SKILL.md` を作成
+3. 必要に応じて `skills/<skill-name>/references/` に詳細ガイドを追加
+4. `commands/<command-name>.md` を作成
 5. Codex対応の場合: `README.md` にインストール手順を追加
