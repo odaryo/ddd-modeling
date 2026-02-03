@@ -1,60 +1,67 @@
-# DDD Modeling Skills
+# DDD Modeling Supporter
 
-DDDモデリングを段階的に進めるためのClaude Code / Codex CLIプラグインです。
+DDDイベントストーミングの相談相手・アドバイザーとして機能するClaude Code / Codex CLIプラグインです。
 
 ## 概要
 
-ドメインモデリングにおいて、ドメインエキスパートとの対話だけでは見落としがちな観点や、暗黙的な知識を明示化することが難しい場面があります。
+イベントストーミングのスクリーンショット（ふせんの図）とテキスト（要件/質問）を渡すと、現在のフェーズを自動推測してアドバイスを提供します。
 
-このスキルセットは、DDDの各手法（イベントストーミング、集約設計、境界コンテキストマッピング等）をAIとの対話形式で進めることで、**深堀りのための補助ツール**として機能することを目的としています。
+ドメインモデリングにおいて、ドメインエキスパートとの対話だけでは見落としがちな観点や、暗黙的な知識を明示化することが難しい場面があります。このスキルは、DDDの各フェーズでの**深堀りのための補助ツール**として機能することを目的としています。
 
-- 「他に重要なドメイン概念はありますか？」
-- 「常に真でなければならないルールは何ですか？」
-- 「同じ言葉で異なる意味を持つものはありますか？」
-
-といった問いかけを通じて、見落としていた観点や曖昧だった境界を明確化する手助けをします。
-
-## ワークフロー
+## 使い方
 
 ```
-Phase 1: /ddd-modeling:1-event-storming
-    → 01-event-storming.md, 01-event-storming-diagram.md
-    ↓
-Phase 2: /ddd-modeling:2-aggregate
-    → 02-aggregates.md
-    ↓
-Phase 3: /ddd-modeling:3-context
-    → 03-bounded-contexts.md
-    ↓
-Phase 4: /ddd-modeling:4-model-diagram
-    → 04-sequence-*.md, 05-class-diagram.md
+/ddd-modeling-supporter:supporter
 ```
 
-## 利用可能なコマンド
+1. イベントストーミングのスクリーンショットを添付
+2. 質問や相談内容をテキストで入力
+3. フェーズが自動推測され、確認される
+4. OKならアドバイスが提供される
 
-### コマンド（ユーザー向け）
+## 5フェーズワークフロー
 
-`/ddd-modeling:command-name` 形式で呼び出します。
+```
+Phase 1: イベント洗い出し
+    → オレンジのふせん中心、イベント名が並んでいる
+    ↓
+Phase 2: フロー図作成
+    → 矢印で接続、コマンド/ポリシーが含まれる
+    ↓
+Phase 3: 集約特定
+    → 緑のふせん、グループ化されている
+    ↓
+Phase 4: 境界コンテキスト決定
+    → 大きな枠で囲まれている、複数のグループ
+    ↓
+Phase 5: ユースケース検証
+    → フローチャート、永続化の記述
+    → 問題あり: Phase 3へ戻る
+    → 問題なし: 完了
+```
 
-| コマンド | 説明 | Codex対応 |
-|----------|------|-----------|
-| 1-event-storming | DDDフェーズ1: イベントストーミング | Yes |
-| 2-aggregate | DDDフェーズ2: 集約設計 | Yes |
-| 3-context | DDDフェーズ3: 境界コンテキスト | Yes |
-| 4-model-diagram | DDDフェーズ4: モデル図生成 | Yes |
-| feedback | UML/Mermaid図へのフィードバック | Yes |
+## 各フェーズでのアドバイス例
 
-### スキル構造
+### Phase 1: イベント洗い出し
+- 「〇〇が成功した場合のイベントはありますが、失敗した場合は？」
+- 「〇〇の前に、△△というイベントが必要では？」
+- 「〇〇と△△は同じ意味ですか？統合できそうです」
 
-各コマンドは対応するフェーズスキルを呼び出します。フェーズスキルは `references/` ディレクトリに詳細なガイドを持ちます：
+### Phase 2: フロー図作成
+- 「このイベントのトリガーは何ですか？」
+- 「ここはポリシー（自動）ですか？人の判断（リードモデル経由）ですか？」
 
-| スキル | 説明 | リファレンス |
-|--------|------|--------------|
-| event-storming | イベントストーミングファシリテーション＋図生成 | facilitator.md, diagram-generator.md, color-convention.md |
-| aggregate | 集約設計支援 | designer.md |
-| context | 境界コンテキストマッピング | mapper.md |
-| model-diagram | シーケンス図・クラス図生成 | sequence-diagram.md, class-diagram.md |
-| feedback | 図へのDDDフィードバック | - |
+### Phase 3: 集約特定
+- 「この2つは同じ集約に含めるべきでは？（同時に更新が必要）」
+- 「この集約は大きすぎます。分割を検討しては？」
+
+### Phase 4: 境界コンテキスト決定
+- 「"顧客"という言葉が2つのコンテキストで異なる意味で使われていませんか？」
+- 「コンテキスト間の関係はCustomer-Supplierが適切では？」
+
+### Phase 5: ユースケース検証
+- 「このステップで2つの集約を同時更新していますが、問題ないですか？」
+- 「→ Phase 3に戻って集約を再設計することをお勧めします」
 
 ## 導入方法
 
@@ -63,8 +70,8 @@ Phase 4: /ddd-modeling:4-model-diagram
 #### 方法1: Claude Code上で登録
 
 1. `/plugin`コマンドを実行し、`Marketplace`タブから新規追加
-2. URLに `odaryo/ddd-modeling`（owner/repo形式）を指定
-3. プラグイン名 `ddd-modeling` を選択してインストール
+2. URLに `odaryo/ddd-modeling-supporter`（owner/repo形式）を指定
+3. プラグイン名 `ddd-modeling-supporter` を選択してインストール
 
 #### 方法2: プロジェクト内に設定
 
@@ -73,10 +80,10 @@ Phase 4: /ddd-modeling:4-model-diagram
 ```json
 {
   "extraKnownMarketplaces": {
-    "ddd-modeling": {
+    "ddd-modeling-supporter": {
       "source": {
         "source": "github",
-        "repo": "<owner>/ddd-modeling"
+        "repo": "<owner>/ddd-modeling-supporter"
       }
     }
   }
@@ -86,21 +93,16 @@ Phase 4: /ddd-modeling:4-model-diagram
 その後、Claude Codeで以下を実行：
 
 ```bash
-/plugin install ddd-modeling@ddd-modeling
+/plugin install ddd-modeling-supporter@ddd-modeling-supporter
 ```
 
 ### Codex CLI
 
 Codexの `$skill-installer` スキルを使用してGitHubリポジトリからインストールします。
 
-**DDDモデリング一式:**
 ```
-$skill-installer install --repo <owner>/ddd-modeling \
-  --path skills/event-storming \
-  --path skills/aggregate \
-  --path skills/context \
-  --path skills/model-diagram \
-  --path skills/feedback
+$skill-installer install --repo <owner>/ddd-modeling-supporter \
+  --path skills/supporter
 ```
 
 **使い方:**
@@ -109,65 +111,35 @@ $skill-installer install --repo <owner>/ddd-modeling \
 /skills
 
 # 明示的に呼び出す
-$event-storming
+$supporter
 
 # または暗黙的に呼び出し（トリガーワードで自動起動）
-「イベントストーミングを始めたい」→ event-storming が自動起動
+「イベントストーミングのアドバイスが欲しい」→ supporter が自動起動
 ```
 
 ## ディレクトリ構造
 
 ```
-ddd-modeling/
+ddd-modeling-supporter/
 ├── .claude-plugin/
 │   ├── marketplace.json        # マーケットプレイス定義
 │   └── plugin.json             # プラグイン定義
 ├── commands/                   # ユーザー向けコマンド
-│   ├── 1-event-storming.md
-│   ├── 2-aggregate.md
-│   ├── 3-context.md
-│   ├── 4-model-diagram.md
-│   └── feedback.md
-├── skills/                     # フェーズスキル
-│   ├── event-storming/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   │       ├── facilitator.md
-│   │       ├── diagram-generator.md
-│   │       └── color-convention.md
-│   ├── aggregate/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   │       └── designer.md
-│   ├── context/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   │       └── mapper.md
-│   ├── model-diagram/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   │       ├── sequence-diagram.md
-│   │       └── class-diagram.md
-│   └── feedback/
-│       └── SKILL.md
+│   └── supporter.md
+├── skills/                     # スキル
+│   └── supporter/
+│       ├── SKILL.md
+│       └── references/
+│           ├── event-analysis.md
+│           ├── flow-patterns.md
+│           ├── aggregate-advice.md
+│           ├── context-mapping.md
+│           ├── usecase-validation.md
+│           └── color-convention.md
 ├── tests/
 │   └── scenarios.md
 ├── CLAUDE.md                   # Claude Code用ガイド
 └── README.md
-```
-
-## 出力例
-
-DDDモデリング成果物は以下の形式で保存されます：
-
-```
-docs/modeling/{YYYY-MM-DD}-{topic}/
-├── 01-event-storming.md         # ドメインイベント、コマンド、アクター、ポリシー
-├── 01-event-storming-diagram.md # Mermaidフローチャート
-├── 02-aggregates.md             # 集約定義、不変条件、ライフサイクル
-├── 03-bounded-contexts.md       # コンテキスト定義、コンテキストマップ
-├── 04-sequence-{usecase}.md     # シーケンス図
-└── 05-class-diagram.md          # クラス図（DDDステレオタイプ付き）
 ```
 
 ## ライセンス
