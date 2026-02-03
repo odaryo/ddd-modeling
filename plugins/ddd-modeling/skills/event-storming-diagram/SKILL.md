@@ -151,5 +151,5 @@ Before saving, verify:
 
 After diagram generation:
 - Review with stakeholders for accuracy
-- Use `/diagram-feedback` for improvement suggestions
+- Use `/ddd-modeling:feedback` for improvement suggestions
 - Proceed to `/aggregate-designer` for aggregate design

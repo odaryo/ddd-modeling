@@ -166,7 +166,7 @@ Participants: {list}
 
 ## Next Steps
 - [ ] Review with domain experts
-- [ ] Proceed to Phase 2: `/ddd-2-aggregate`
+- [ ] Proceed to Phase 2: `/ddd-modeling:2-aggregate`
 ```
 
 ---
@@ -322,7 +322,7 @@ Before completing:
 
 After completing Phase 1:
 ```
-→ Phase 2: /ddd-2-aggregate (集約設計)
-→ Phase 3: /ddd-3-context (境界コンテキスト)
-→ Phase 4: /ddd-4-model-diagram (クラス図・シーケンス図)
+→ Phase 2: /ddd-modeling:2-aggregate (集約設計)
+→ Phase 3: /ddd-modeling:3-context (境界コンテキスト)
+→ Phase 4: /ddd-modeling:4-model-diagram (クラス図・シーケンス図)
 ```

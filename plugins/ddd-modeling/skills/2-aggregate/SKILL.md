@@ -182,8 +182,8 @@ Date: {YYYY-MM-DD}
 
 ## Next Steps
 - [ ] Review with domain experts
-- [ ] Proceed to Phase 3: `/ddd-3-context`
-- [ ] Or skip to Phase 4: `/ddd-4-model-diagram`
+- [ ] Proceed to Phase 3: `/ddd-modeling:3-context`
+- [ ] Or skip to Phase 4: `/ddd-modeling:4-model-diagram`
 ```
 
 ---
@@ -292,6 +292,6 @@ Before completing:
 
 After completing Phase 2:
 ```
-→ Phase 3: /ddd-3-context (境界コンテキスト発見)
-→ Phase 4: /ddd-4-model-diagram (クラス図・シーケンス図生成)
+→ Phase 3: /ddd-modeling:3-context (境界コンテキスト発見)
+→ Phase 4: /ddd-modeling:4-model-diagram (クラス図・シーケンス図生成)
 ```

@@ -485,5 +485,5 @@ docs/modeling/{session}/
 ## Diagram Review
 
 For feedback on generated diagrams:
-- Use `/diagram-feedback` with the file path
+- Use `/ddd-modeling:feedback` with the file path
 - Get DDD-focused review and improvement suggestions

@@ -221,7 +221,7 @@ flowchart TB
 ## Next Steps
 - [ ] Review with all teams
 - [ ] Design integration contracts
-- [ ] Proceed to Phase 4: `/ddd-4-model-diagram`
+- [ ] Proceed to Phase 4: `/ddd-modeling:4-model-diagram`
 ```
 
 ---
@@ -330,5 +330,5 @@ Before completing:
 
 After completing Phase 3:
 ```
-→ Phase 4: /ddd-4-model-diagram (クラス図・シーケンス図生成)
+→ Phase 4: /ddd-modeling:4-model-diagram (クラス図・シーケンス図生成)
 ```
