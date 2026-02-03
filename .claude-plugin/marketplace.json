@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "ddd-modeling",
-      "source": "./plugins/ddd-modeling",
+      "source": ".",
       "description": "DDDモデリング支援スキル集 - イベントストーミング、集約設計、境界コンテキストマッピング、UML図生成",
       "version": "1.0.0"
     }
