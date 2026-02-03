@@ -1,6 +1,6 @@
 ---
 name: event-storming-facilitator
-description: "[内部スキル] イベントストーミングのファシリテーション。ddd-1-event-stormingから呼び出される。"
+description: "[内部スキル] イベントストーミングのファシリテーション。1-event-stormingから呼び出される。"
 user-invocable: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: sequence-diagram
-description: "[内部スキル] Mermaidシーケンス図の生成。ddd-4-model-diagramから呼び出される。"
+description: "[内部スキル] Mermaidシーケンス図の生成。4-model-diagramから呼び出される。"
 user-invocable: false
 ---
 

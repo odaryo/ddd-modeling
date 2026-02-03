@@ -1,6 +1,6 @@
 ---
 name: bounded-context-mapper
-description: "[内部スキル] 境界コンテキストの発見とマッピング。ddd-3-contextから呼び出される。"
+description: "[内部スキル] 境界コンテキストの発見とマッピング。3-contextから呼び出される。"
 user-invocable: false
 ---
 

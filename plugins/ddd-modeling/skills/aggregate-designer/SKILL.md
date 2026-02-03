@@ -1,6 +1,6 @@
 ---
 name: aggregate-designer
-description: "[内部スキル] 集約（Aggregate）の境界設計。ddd-2-aggregateから呼び出される。"
+description: "[内部スキル] 集約（Aggregate）の境界設計。2-aggregateから呼び出される。"
 user-invocable: false
 ---
 
