@@ -89,11 +89,11 @@ Codexの `$skill-installer` スキルを使用してGitHubリポジトリから�
 **DDDモデリング一式:**
 ```
 $skill-installer install --repo <owner>/ddd-modeling \
-  --path plugins/ddd-modeling/skills/1-event-storming \
-  --path plugins/ddd-modeling/skills/2-aggregate \
-  --path plugins/ddd-modeling/skills/3-context \
-  --path plugins/ddd-modeling/skills/4-model-diagram \
-  --path plugins/ddd-modeling/skills/feedback
+  --path skills/1-event-storming \
+  --path skills/2-aggregate \
+  --path skills/3-context \
+  --path skills/4-model-diagram \
+  --path skills/feedback
 ```
 
 **使い方:**
@@ -113,20 +113,17 @@ $1-event-storming
 ```
 ddd-modeling/
 ├── .claude-plugin/
-│   └── marketplace.json        # マーケットプレイス定義
-├── plugins/
-│   └── ddd-modeling/           # DDDモデリングスキル集
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       ├── skills/
-│       │   ├── 1-event-storming/
-│       │   ├── 2-aggregate/
-│       │   ├── 3-context/
-│       │   ├── 4-model-diagram/
-│       │   ├── feedback/
-│       │   └── [内部スキル...]
-│       └── tests/
-│           └── scenarios.md
+│   ├── marketplace.json        # マーケットプレイス定義
+│   └── plugin.json             # プラグイン定義
+├── skills/                     # DDDモデリングスキル集
+│   ├── 1-event-storming/
+│   ├── 2-aggregate/
+│   ├── 3-context/
+│   ├── 4-model-diagram/
+│   ├── feedback/
+│   └── [内部スキル...]
+├── tests/
+│   └── scenarios.md
 ├── CLAUDE.md                   # Claude Code用ガイド
 └── README.md
 ```
