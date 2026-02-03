@@ -1,5 +1,5 @@
 ---
-name: ddd-3-context
+name: 3-context
 description: DDDモデリング Phase 3。境界付けられたコンテキスト（Bounded Context）を対話形式で発見し、コンテキストマップをMermaidで生成します。「境界コンテキスト」「コンテキストマップ」「DDDフェーズ3」時に使用。
 ---
 

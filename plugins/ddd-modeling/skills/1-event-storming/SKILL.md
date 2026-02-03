@@ -1,5 +1,5 @@
 ---
-name: ddd-1-event-storming
+name: 1-event-storming
 description: DDDモデリング Phase 1。イベントストーミングのファシリテーションと図の生成を行います。「DDDモデリング」「イベントストーミング」「ドメインイベント洗い出し」「DDDフェーズ1」時に使用。
 ---
 
