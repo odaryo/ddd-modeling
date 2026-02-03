@@ -1,0 +1,12 @@
+{
+  "$schema": "https://claude.ai/plugin-schema/marketplace.json",
+  "name": "ddd-modeling",
+  "description": "DDDモデリング支援スキルのマーケットプレイス",
+  "plugins": [
+    {
+      "name": "ddd-modeling-skills",
+      "source": "./plugins/ddd-modeling-skills",
+      "description": "DDDモデリング支援スキル集 - イベントストーミング、集約設計、境界コンテキストマッピング、UML図生成"
+    }
+  ]
+}
