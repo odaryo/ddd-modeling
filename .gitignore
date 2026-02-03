@@ -1,1 +1,4 @@
 .idea
+
+# Claude Code local settings
+settings.local.json
