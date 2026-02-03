@@ -56,7 +56,7 @@ Phase 4: /ddd-4-model-diagram
 #### 方法1: Claude Code上で登録
 
 1. `/plugin`コマンドを実行し、`Marketplace`タブから新規追加
-2. URLに本リポジトリのURL（`git@github.com:<owner>/ddd-modeling.git`）を指定
+2. URLに `odaryo/ddd-modeling`（owner/repo形式）を指定
 3. プラグイン名 `ddd-modeling-skills` を選択してインストール
 
 #### 方法2: プロジェクト内に設定
