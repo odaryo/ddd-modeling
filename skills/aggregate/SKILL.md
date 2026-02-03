@@ -1,6 +1,7 @@
 ---
-name: 2-aggregate
+name: aggregate
 description: DDDモデリング Phase 2。集約（Aggregate）の境界を対話形式で設計します。不変条件、整合性境界、ライフサイクル、集約ルートを特定。「集約設計」「Aggregate設計」「DDDフェーズ2」時に使用。
+user-invocable: false
 ---
 
 # DDD Modeling Phase 2: Aggregate Design
