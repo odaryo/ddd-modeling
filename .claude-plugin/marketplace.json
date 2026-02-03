@@ -1,7 +1,7 @@
 {
   "$schema": "https://claude.ai/plugin-schema/marketplace.json",
   "name": "ddd-modeling",
-  "description": "DDDモデリング支援スキルのマーケットプレイス",
+  "description": "DDDモデリング支援スキル集",
   "plugins": [
     {
       "name": "ddd-modeling-skills",
