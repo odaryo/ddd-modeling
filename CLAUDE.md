@@ -22,13 +22,19 @@ ddd-modeling/
 ├── .claude-plugin/
 │   ├── marketplace.json        # マーケットプレイス定義
 │   └── plugin.json             # プラグイン定義
-├── skills/                     # DDDモデリングスキル集
-│   ├── 1-event-storming/       # Phase 1: イベントストーミング
-│   ├── 2-aggregate/            # Phase 2: 集約設計
-│   ├── 3-context/              # Phase 3: 境界コンテキスト
-│   ├── 4-model-diagram/        # Phase 4: モデル図生成
+├── commands/                   # ユーザー向けコマンド
+│   ├── 1-event-storming.md     # /ddd-modeling:1-event-storming
+│   ├── 2-aggregate.md          # /ddd-modeling:2-aggregate
+│   ├── 3-context.md            # /ddd-modeling:3-context
+│   ├── 4-model-diagram.md      # /ddd-modeling:4-model-diagram
+│   └── feedback.md             # /ddd-modeling:feedback
+├── skills/                     # 内部スキル（コマンドから呼び出し）
+│   ├── event-storming/         # Phase 1: イベントストーミング
+│   ├── aggregate/              # Phase 2: 集約設計
+│   ├── context/                # Phase 3: 境界コンテキスト
+│   ├── model-diagram/          # Phase 4: モデル図生成
 │   ├── feedback/               # 補助: 図のフィードバック
-│   └── [内部スキル...]
+│   └── [その他内部スキル...]
 ├── tests/
 │   └── scenarios.md
 ├── CLAUDE.md
@@ -51,37 +57,55 @@ Phase 4: /ddd-modeling:4-model-diagram
     → 04-sequence-*.md, 05-class-diagram.md
 ```
 
-## スキルファイル構造
+## コマンドとスキル構造
 
-### フェーズスキル（ユーザー向け）
+### コマンド（ユーザー向け）
 
-| スキル | 説明 | Codex対応 |
-|--------|------|-----------|
-| 1-event-storming | Phase 1: イベントストーミング | Yes |
-| 2-aggregate | Phase 2: 集約設計 | Yes |
-| 3-context | Phase 3: 境界コンテキスト | Yes |
-| 4-model-diagram | Phase 4: モデル図生成 | Yes |
-| feedback | 図へのフィードバック | Yes |
+`/ddd-modeling:command-name` 形式で呼び出し。
 
-### 内部スキル（フェーズスキルから呼び出し）
+| コマンド | 説明 | 呼び出すスキル |
+|----------|------|----------------|
+| 1-event-storming | Phase 1: イベントストーミング | event-storming |
+| 2-aggregate | Phase 2: 集約設計 | aggregate |
+| 3-context | Phase 3: 境界コンテキスト | context |
+| 4-model-diagram | Phase 4: モデル図生成 | model-diagram |
+| feedback | 図へのフィードバック | feedback |
+
+### 内部スキル（コマンドから呼び出し）
 
 | スキル | 説明 |
 |--------|------|
-| event-storming-facilitator | イベントストーミングファシリテーション |
-| event-storming-diagram | イベントストーミング図生成 |
-| aggregate-designer | 集約設計支援 |
-| bounded-context-mapper | 境界コンテキストマッピング |
-| sequence-diagram | シーケンス図生成 |
-| class-diagram | クラス図生成 |
+| event-storming | イベントストーミングファシリテーション＋図生成 |
+| aggregate | 集約設計支援 |
+| context | 境界コンテキストマッピング |
+| model-diagram | シーケンス図・クラス図生成 |
+| feedback | 図へのDDDフィードバック |
+| event-storming-facilitator | (内部) イベントストーミングファシリテーション |
+| event-storming-diagram | (内部) イベントストーミング図生成 |
+| aggregate-designer | (内部) 集約設計支援 |
+| bounded-context-mapper | (内部) 境界コンテキストマッピング |
+| sequence-diagram | (内部) シーケンス図生成 |
+| class-diagram | (内部) クラス図生成 |
+
+## コマンドファイル作成ガイドライン
+
+### フロントマター（commands/*.md）
+```yaml
+---
+description: 説明文            # 何ができるか
+---
+
+Invoke the ddd-modeling:{skill-name} skill and follow it exactly as presented to you
+```
 
 ## SKILL.md 作成ガイドライン
 
-### フロントマター
+### フロントマター（skills/*/SKILL.md）
 ```yaml
 ---
 name: skill-name              # 小文字、数字、ハイフンのみ（両環境共通）
 description: 説明文            # 何ができるか + いつ使うか（両環境共通）
-user-invocable: false         # 内部スキルの場合のみ追加
+user-invocable: false         # 内部スキルとして設定
 ---
 ```
 

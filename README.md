@@ -30,11 +30,13 @@ Phase 4: /ddd-modeling:4-model-diagram
     → 04-sequence-*.md, 05-class-diagram.md
 ```
 
-## 利用可能なスキル
+## 利用可能なコマンド
 
-### フェーズスキル（ユーザー向け）
+### コマンド（ユーザー向け）
 
-| スキル名 | 説明 | Codex対応 |
+`/ddd-modeling:command-name` 形式で呼び出します。
+
+| コマンド | 説明 | Codex対応 |
 |----------|------|-----------|
 | 1-event-storming | DDDフェーズ1: イベントストーミング | Yes |
 | 2-aggregate | DDDフェーズ2: 集約設計 | Yes |
@@ -44,7 +46,8 @@ Phase 4: /ddd-modeling:4-model-diagram
 
 ### 内部スキル
 
-以下のスキルはフェーズスキルから呼び出される内部スキルとして整理:
+以下のスキルはコマンドから呼び出される内部スキルです（直接呼び出し不可）:
+- `event-storming`, `aggregate`, `context`, `model-diagram`, `feedback`
 - `event-storming-facilitator`, `event-storming-diagram`
 - `aggregate-designer`, `bounded-context-mapper`
 - `class-diagram`, `sequence-diagram`
@@ -89,10 +92,10 @@ Codexの `$skill-installer` スキルを使用してGitHubリポジトリから�
 **DDDモデリング一式:**
 ```
 $skill-installer install --repo <owner>/ddd-modeling \
-  --path skills/1-event-storming \
-  --path skills/2-aggregate \
-  --path skills/3-context \
-  --path skills/4-model-diagram \
+  --path skills/event-storming \
+  --path skills/aggregate \
+  --path skills/context \
+  --path skills/model-diagram \
   --path skills/feedback
 ```
 
@@ -102,10 +105,10 @@ $skill-installer install --repo <owner>/ddd-modeling \
 /skills
 
 # 明示的に呼び出す
-$1-event-storming
+$event-storming
 
 # または暗黙的に呼び出し（トリガーワードで自動起動）
-「イベントストーミングを始めたい」→ 1-event-storming が自動起動
+「イベントストーミングを始めたい」→ event-storming が自動起動
 ```
 
 ## ディレクトリ構造
@@ -115,13 +118,19 @@ ddd-modeling/
 ├── .claude-plugin/
 │   ├── marketplace.json        # マーケットプレイス定義
 │   └── plugin.json             # プラグイン定義
-├── skills/                     # DDDモデリングスキル集
-│   ├── 1-event-storming/
-│   ├── 2-aggregate/
-│   ├── 3-context/
-│   ├── 4-model-diagram/
+├── commands/                   # ユーザー向けコマンド
+│   ├── 1-event-storming.md
+│   ├── 2-aggregate.md
+│   ├── 3-context.md
+│   ├── 4-model-diagram.md
+│   └── feedback.md
+├── skills/                     # 内部スキル
+│   ├── event-storming/
+│   ├── aggregate/
+│   ├── context/
+│   ├── model-diagram/
 │   ├── feedback/
-│   └── [内部スキル...]
+│   └── [その他内部スキル...]
 ├── tests/
 │   └── scenarios.md
 ├── CLAUDE.md                   # Claude Code用ガイド
