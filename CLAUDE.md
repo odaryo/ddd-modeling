@@ -20,20 +20,17 @@ Codex用のインストール手順は `README.md` を参照。
 ```
 ddd-modeling/
 ├── .claude-plugin/
-│   └── marketplace.json        # マーケットプレイス定義
-├── plugins/
-│   └── ddd-modeling/           # DDDモデリングスキル集
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       ├── skills/
-│       │   ├── 1-event-storming/       # Phase 1: イベントストーミング
-│       │   ├── 2-aggregate/            # Phase 2: 集約設計
-│       │   ├── 3-context/              # Phase 3: 境界コンテキスト
-│       │   ├── 4-model-diagram/        # Phase 4: モデル図生成
-│       │   ├── feedback/               # 補助: 図のフィードバック
-│       │   └── [内部スキル...]
-│       └── tests/
-│           └── scenarios.md
+│   ├── marketplace.json        # マーケットプレイス定義
+│   └── plugin.json             # プラグイン定義
+├── skills/                     # DDDモデリングスキル集
+│   ├── 1-event-storming/       # Phase 1: イベントストーミング
+│   ├── 2-aggregate/            # Phase 2: 集約設計
+│   ├── 3-context/              # Phase 3: 境界コンテキスト
+│   ├── 4-model-diagram/        # Phase 4: モデル図生成
+│   ├── feedback/               # 補助: 図のフィードバック
+│   └── [内部スキル...]
+├── tests/
+│   └── scenarios.md
 ├── CLAUDE.md
 └── README.md
 ```
